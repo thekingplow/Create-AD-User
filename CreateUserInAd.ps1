@@ -37,7 +37,7 @@ function Add-UserToGroups {
 }
 
 
-# Функция для получения групп из OU "ITS-Bel" в Active Directory
+# Функция для получения групп из OU в Active Directory
 function Get-ADGroupsITSBel {
     try {
         $ou = "OU=<Department>,OU=<Unit>,OU=<MainOU>,DC=<DomainName>,DC=local"
@@ -59,7 +59,7 @@ function Add-UserToDepartmentGroup {
     )
 
     try {
-        # Путь поиска групп в OU "ITS-Bel"
+        # Путь поиска групп в OU
         $ou = "OU=<Department>,OU=<Unit>,OU=<MainOU>,DC=<DomainName>,DC=local"
         $group = Get-ADGroup -Filter { Name -eq $departmentGroupName } -SearchBase $ou
 
@@ -716,7 +716,7 @@ $textBoxManagerName.Add_KeyPress({
 
 
 
-# Создание метки и списка с выбором для ITS-Bel
+# Создание метки и списка с выбором
 $labelSelectionITSBel = New-Object System.Windows.Forms.Label
 $labelSelectionITSBel.Text = "Отдел (ITS-Bel):"
 $labelSelectionITSBel.Top = 250
