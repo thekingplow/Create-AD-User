@@ -14,4 +14,4 @@
 ## Скриншоты
 
 Главное окно:  
-<img src="screens/sc1.png" width="600"/>
+<img src="screens/sc1.png">
