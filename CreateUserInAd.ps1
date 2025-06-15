@@ -38,7 +38,7 @@ function Add-UserToGroups {
 
 
 # Функция для получения групп из OU в Active Directory
-function Get-ADGroupsITSBel {
+function Get-ADGroupsCompany {
     try {
         $ou = "OU=<Department>,OU=<Unit>,OU=<MainOU>,DC=<DomainName>,DC=local"
         $groups = Get-ADGroup -Filter * -SearchBase $ou | Select-Object -ExpandProperty Name | Sort-Object
@@ -717,47 +717,47 @@ $textBoxManagerName.Add_KeyPress({
 
 
 # Создание метки и списка с выбором
-$labelSelectionITSBel = New-Object System.Windows.Forms.Label
-$labelSelectionITSBel.Text = "Отдел (ITS-Bel):"
-$labelSelectionITSBel.Top = 250
-$labelSelectionITSBel.Left = 820
-$labelSelectionITSBel.BackColor = [System.Drawing.Color]::Transparent  # Установка прозрачного фона
-$labelSelectionITSBel.AutoSize = $true  # Автоматический размер под текст
-$labelSelectionITSBel.ForeColor = [System.Drawing.Color]::White
-$form.Controls.Add($labelSelectionITSBel)
+$labelSelectionCompany = New-Object System.Windows.Forms.Label
+$labelSelectionCompany.Text = "Отдел (ITS-Bel):"
+$labelSelectionCompany.Top = 250
+$labelSelectionCompany.Left = 820
+$labelSelectionCompany.BackColor = [System.Drawing.Color]::Transparent  # Установка прозрачного фона
+$labelSelectionCompany.AutoSize = $true  # Автоматический размер под текст
+$labelSelectionCompany.ForeColor = [System.Drawing.Color]::White
+$form.Controls.Add($labelSelectionCompany)
 
 # Создание метки для звёздочки
-$labelStarSelectionITSBel = New-Object System.Windows.Forms.Label
-$labelStarSelectionITSBel.Text = "*"
-$labelStarSelectionITSBel.Top = 250
-$labelStarSelectionITSBel.Left = ($labelSelectionITSBel.Left + $labelSelectionITSBel.Width + -3)
-$labelStarSelectionITSBel.ForeColor = [System.Drawing.Color]::Red
-$labelStarSelectionITSBel.BackColor = [System.Drawing.Color]::Transparent  # Установка прозрачного фона
+$labelStarSelectionCompany = New-Object System.Windows.Forms.Label
+$labelStarSelectionCompany.Text = "*"
+$labelStarSelectionCompany.Top = 250
+$labelStarSelectionCompany.Left = ($labelSelectionCompany.Left + $labelSelectionCompany.Width + -3)
+$labelStarSelectionCompany.ForeColor = [System.Drawing.Color]::Red
+$labelStarSelectionCompany.BackColor = [System.Drawing.Color]::Transparent  # Установка прозрачного фона
 
 # Задание ширины метки
-$labelStarSelectionITSBel.AutoSize = $false  # Отключение автоматического размера
-$labelStarSelectionITSBel.Width = 10  # Задание конкретной ширины
-$form.Controls.Add($labelStarSelectionITSBel)
+$labelStarSelectionCompany.AutoSize = $false  # Отключение автоматического размера
+$labelStarSelectionCompany.Width = 10  # Задание конкретной ширины
+$form.Controls.Add($labelStarSelectionCompany)
 
 
 
-$listBoxSelectionITSBel = New-Object System.Windows.Forms.ListBox
-$listBoxSelectionITSBel.Top = 250
-$listBoxSelectionITSBel.Left = 960
-$listBoxSelectionITSBel.Width = 230
-$listBoxSelectionITSBel.Height = 330
-$listBoxSelectionITSBel.SelectionMode = [System.Windows.Forms.SelectionMode]::One
+$listBoxSelectionCompany = New-Object System.Windows.Forms.ListBox
+$listBoxSelectionCompany.Top = 250
+$listBoxSelectionCompany.Left = 960
+$listBoxSelectionCompany.Width = 230
+$listBoxSelectionCompany.Height = 330
+$listBoxSelectionCompany.SelectionMode = [System.Windows.Forms.SelectionMode]::One
 
 # Установка размера и стиля шрифта
-$listBoxSelectionITSBel.Font = New-Object System.Drawing.Font("Calibri", 10.2, [System.Drawing.FontStyle]::Regular)
+$listBoxSelectionCompany.Font = New-Object System.Drawing.Font("Calibri", 10.2, [System.Drawing.FontStyle]::Regular)
 
 # Получение групп из ITS-Bel и добавление их в ListBox
-$adGroupsITSBel = Get-ADGroupsITSBel
-$listBoxSelectionITSBel.Items.AddRange($adGroupsITSBel)
+$adGroupsCompany = Get-ADGroupsCompany
+$listBoxSelectionCompany.Items.AddRange($adGroupsCompany)
 
-$listBoxSelectionITSBel.Cursor = [System.Windows.Forms.Cursors]::Hand
+$listBoxSelectionCompany.Cursor = [System.Windows.Forms.Cursors]::Hand
 
-$form.Controls.Add($listBoxSelectionITSBel)
+$form.Controls.Add($listBoxSelectionCompany)
 
 
 
@@ -827,7 +827,7 @@ $linkLabel.VisitedLinkColor = [System.Drawing.Color]::White
 $linkLabel.ActiveLinkColor = [System.Drawing.Color]::White
 
 # Установка ссылки
-$link = "https://wiki.itsbel.by/pages/viewpage.action?pageId=169869792"
+$link = "https://wiki.Company.by/pages/viewpage.action?pageId=169869792"
 $linkLabel.Links.Add(0, $linkLabel.Text.Length, $link)
 
 # Путь к Google Chrome (обновите путь, если у вас он другой)
@@ -1010,13 +1010,13 @@ $buttonAddUser.Add_Click({
     $middleName = $textBoxMiddleName.Text
     $employeeID = $textBoxEmployeeID.Text
     $telephoneNumber = $textBoxTelephoneNumber.Text
-    $selectedDepartment = $listBoxSelectionITSBel.SelectedItem
+    $selectedDepartment = $listBoxSelectionCompany.SelectedItem
     $managerName = $textBoxManagerName.Text
     $selectedOU = $listBoxOUs.SelectedItem
     $company = "Name Company" #Указать свою компанию
     $fullName = "$lastName $firstName"
     $displayName = $fullName
-    #$email = "$loginName@itsbel.by"
+    #$email = "$loginName@Company.by"
     $domain = "domain.com" #Указать свой домен
     $upnSuffix = "@$domain"
     $userPrincipalName = "$loginName$upnSuffix"
@@ -1077,11 +1077,11 @@ $buttonAddUser.Add_Click({
     }
 
     # Проверка выбора отдела
-    if ($listBoxSelectionITSBel.SelectedItem -eq $null) {
-        $listBoxSelectionITSBel.BackColor = [System.Drawing.Color]::Red
+    if ($listBoxSelectionCompany.SelectedItem -eq $null) {
+        $listBoxSelectionCompany.BackColor = [System.Drawing.Color]::Red
         $missingFields = $true
     } else {
-        $listBoxSelectionITSBel.BackColor = [System.Drawing.Color]::White
+        $listBoxSelectionCompany.BackColor = [System.Drawing.Color]::White
     }
 
 
