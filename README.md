@@ -4,4 +4,4 @@ A tool for managing Active Directory users via a graphical interface on PowerShe
 ## Скриншоты
 
 Главное окно:  
-![Главное окно](screens/sc1.png)
+(screens/sc1.png)
