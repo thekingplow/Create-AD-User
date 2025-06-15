@@ -44,7 +44,7 @@ function Get-ADGroupsCompany {
         $groups = Get-ADGroup -Filter * -SearchBase $ou | Select-Object -ExpandProperty Name | Sort-Object
         return $groups
     } catch {
-        Write-Host "Ошибка при получении групп из организационной единицы ITS-Bel: $_"
+        Write-Host "Ошибка при получении групп из организационной единицы Company: $_"
         return @()
     }
 }
@@ -67,7 +67,7 @@ function Add-UserToDepartmentGroup {
             Add-ADGroupMember -Identity $group -Members $userDN
             Write-Host "Пользователь добавлен в группу отдела: $departmentGroupName" -ForegroundColor Green
         } else {
-            Write-Host "Группа отдела '$departmentGroupName' не найдена в OU 'ITS-Bel'" -ForegroundColor Red
+            Write-Host "Группа отдела '$departmentGroupName' не найдена в OU 'Company'" -ForegroundColor Red
         }
     } catch {
         Write-Host "Ошибка при добавлении пользователя в группу отдела '$departmentGroupName': $_" -ForegroundColor Red
@@ -718,7 +718,7 @@ $textBoxManagerName.Add_KeyPress({
 
 # Создание метки и списка с выбором
 $labelSelectionCompany = New-Object System.Windows.Forms.Label
-$labelSelectionCompany.Text = "Отдел (ITS-Bel):"
+$labelSelectionCompany.Text = "Отдел (Company):"
 $labelSelectionCompany.Top = 250
 $labelSelectionCompany.Left = 820
 $labelSelectionCompany.BackColor = [System.Drawing.Color]::Transparent  # Установка прозрачного фона
@@ -751,7 +751,7 @@ $listBoxSelectionCompany.SelectionMode = [System.Windows.Forms.SelectionMode]::O
 # Установка размера и стиля шрифта
 $listBoxSelectionCompany.Font = New-Object System.Drawing.Font("Calibri", 10.2, [System.Drawing.FontStyle]::Regular)
 
-# Получение групп из ITS-Bel и добавление их в ListBox
+# Получение групп из Company и добавление их в ListBox
 $adGroupsCompany = Get-ADGroupsCompany
 $listBoxSelectionCompany.Items.AddRange($adGroupsCompany)
 
@@ -1206,7 +1206,7 @@ $buttonAddUser.Add_Click({
         foreach ($group in $selectedGroups) {
             Write-Host $group -ForegroundColor Cyan
         }
-    Write-Host "Отдел (ITS-Bel): $selectedDepartment" -ForegroundColor Cyan
+    Write-Host "Отдел (Company): $selectedDepartment" -ForegroundColor Cyan
     Write-Host "Руководитель: $managerName" -ForegroundColor Cyan
     Write-Host "Пароль: $password" -ForegroundColor Cyan
     Write-Host "OU: $selectedOU" -ForegroundColor Cyan
